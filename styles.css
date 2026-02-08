@@ -1,0 +1,325 @@
+/* ---------------------------- */
+/* Estilos generales */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  background: url('images/fondo.png') no-repeat center top;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.intro-title {
+  color: aliceblue;
+  font-family: 'Sacramento', cursive;
+  font-size: 36px;
+  text-align: center;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  animation: fadeUp 1.5s ease forwards;
+}
+
+/* ---------------------------- */
+/* Botón */
+#open-card-btn {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #fff2bd, #ff5a5a);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(240, 201, 41, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: pulse 2s infinite;
+}
+#close-card-btn {
+  padding: 15px 30px;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(45deg, #fff2bd, #ff5a5a);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(240, 201, 41, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: pulse 2s infinite;
+}
+#open-card-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(240, 201, 41, 0.7);
+}
+
+/* Contenedor del botón */
+.button-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ---------------------------- */
+/* Contenedor de la carta */
+.card-container {
+  width: 500px;
+  max-width: 90%;
+  background: #fffbe6;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  overflow: hidden;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.8s ease-in-out;
+  position: relative;
+  z-index: 10;
+  perspective: 1200px; 
+}
+.card.show .fade-text {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 1.5s; /* ajusta según el orden */
+}
+
+/* Carta */
+.card {
+  width: 100%;
+  height: 100%;
+  background: #fffef0;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  transform: scale(0.8) rotateX(-90deg);
+  opacity: 0;
+  transition: transform 1s ease, opacity 1s ease;
+}
+
+.card-inside {
+  position: relative;
+  z-index: 20; /* Mensaje siempre arriba */
+}
+
+/* Cuando se muestra */
+.card-container.show {
+  transform: scaleY(1);
+}
+.card-photo {
+  width: 100%;
+  height: auto;        /* mantiene proporción */
+  max-width: 320px;    /* tamaño máximo */
+  margin: 15px auto;
+  display: block;
+  border-radius: 15px;
+  object-fit: contain; /* asegura que no se recorte */
+}
+
+.card.show {
+  transform: scale(1) rotateX(0);
+  opacity: 1;
+}
+
+/* ---------------------------- */
+/* Mensaje */
+.message {
+  padding: 32px;
+  text-align: center;
+  font-family: 'Sacramento', cursive;
+}
+
+.message h1 {
+  font-size: 34px;
+  color: #8B4513;
+  line-height: 1.2;
+}
+
+.message p {
+  font-size: 22px;  
+  margin: 12px 0;
+  line-height: 1.4;     
+  color: #5a3a1a;      
+}
+
+.final-message {
+  font-size: 26px;
+  font-weight: bold;
+  color: #FFD700;
+  margin-top: 20px;
+}
+
+/* Animación de texto */
+.message h1,
+.message p {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.card.show .message h1 {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.5s;
+}
+
+.card.show .message p {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 1s;
+}
+
+.card.show .final-message {
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 2s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*Corazones*/
+.heart {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #ff002f;
+  transform: rotate(45deg);
+  animation: fallAndRotate 8s linear forwards, fadeOut 1s ease-in forwards 7s;
+  filter: blur(0.3px);
+
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff002f;
+  border-radius: 50%;
+}
+
+.heart::before {
+  top: -50%;
+  left: 0;
+}
+
+.heart::after {
+  left: -50%;
+  top: 0;
+}
+
+
+/* Música invisible de fondo */
+#bg-music {
+  display: none; /* No se ve el reproductor */
+}
+
+/* ---------------------------- */
+/* Animaciones */
+@keyframes fallAndRotate {
+  0% {
+    top: -120px;
+    transform: translateX(0) rotate(45deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: translateX(var(--drift)) rotate(225deg);
+  }
+
+  100% {
+    top: 120vh;
+    transform: translateX(calc(var(--drift) * 1.5)) rotate(405deg);
+    opacity: 0;
+  }
+}
+
+/* ---------------------------- */
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 600px) {
+  .card-container {
+    width: 90%;        /* ocupa casi toda la pantalla */
+    max-width: 400px;  /* opcional, para que no quede gigante */
+    margin: 0 auto;    /* centra horizontal */
+box-sizing: border-box; /* incluye padding y border en el width */
+    padding: 0 10px;
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .button-container {
+    height: auto;          /* no ocupa todo el viewport */
+    padding: 20px 0;
+  }
+
+  #open-card-btn {
+    font-size: 1em;
+    padding: 12px 20px;
+  }
+  #close-card-btn {
+    font-size: 1em;
+    padding: 12px 20px;
+  }
+
+  .message h1 {
+    font-size: 24px;
+  }
+
+  .message p {
+    font-size: 16px;
+  }
+
+  .final-message {
+    font-size: 18px;
+  }
+
+  .flower {
+    width: 100px;
+    height: 100px;
+  }
+
+  .petal {
+    width: 20px;
+    height: 40px;
+  }
+
+  .center {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+/* ---------------------------- */
+/* Ajuste para móviles con altura limitada */
+@media (max-height: 500px) {
+  .card-container {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+@media (max-width: 600px) {
+  .message h1 {
+    font-size: 26px;
+  }
+
+  .message p {
+    font-size: 24px;
+  }
+
+  .final-message {
+    font-size: 22px;
+  }
+}
